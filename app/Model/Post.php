@@ -18,4 +18,13 @@ class Post extends AppModel {
                                                                'message'  => 'Body is a required field.',
                                                                'required' => true)));
 
+  public function beforeSave($options = array())
+  {
+   // Generate a slug for the post based on the title
+   if (empty($this->data['Post']['slug'])) {
+     $this->data['Post']['slug'] = strtolower(Inflector::slug($this->data['Post']['title']));
+   }
+   return true;
+  }
+
 }
