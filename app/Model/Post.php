@@ -6,18 +6,10 @@ App::uses('AppModel', 'Model');
  */
 class Post extends AppModel {
 
-/**
- * Display field
- *
- * @var string
- */
   public $displayField = 'title';
 
-/**
- * Validation rules
- *
- * @var array
- */
+  public $order = 'Post.created DESC';
+
   public $validate = array('title' => array('maxlen' => array('rule'       => array('maxLength', 255),
                                                               'message'    => 'Title was too long.',
                                                               'required'   => false,

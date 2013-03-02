@@ -45,6 +45,17 @@ class PagesController extends AppController {
  */
 	public $uses = array();
 
+  /**
+   * Custom home view
+   */
+  public function home()
+  {
+    App::uses('Post', 'Model');
+    $this->Post = ClassRegistry::init('Post');
+    $params = array('limit' => 10);
+    $this->set('posts', $this->Post->find('all', $params));
+  }
+
 /**
  * Displays a view
  *
