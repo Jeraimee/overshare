@@ -10,3 +10,11 @@ article time {
 article footer {
   margin-top: 1em;
 }
+a.brand {
+  text-decoration: none;
+  color: #000000;
+}
+a.brand:hover {
+  text-decoration: none;
+  color: #000000;
+}

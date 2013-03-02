@@ -37,49 +37,13 @@
 
       <div class="masthead">
 
-        <h1>asdf</h1>
-
-        <div class="navbar">
-          <div class="navbar-inner">
-            <div class="container">
-
-              <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-              </a>
-
-              <div class="nav-collapse collapse">
-                <ul class="nav">
-                  <li><a href="#">Something</a></li>
-                  <li class="divider-vertical"></li>
-                  <li><a href="#">Something else</a></li>
-                  <li class="divider-vertical"></li>
-                  <li class="dropdown">
-                    <a href="#" data-toggle="dropdown">Another thing <b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                    </ul>
-                </ul>
-
-                <ul class="nav pull-right">
-                  <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                      More <b class="caret"></b>
-                    </a>
-                    <ul class="dropdown-menu">
-                    </ul>
-                  </li>
-                </ul>
-              </div>
-
-            </div>
-          </div>
-        </div><!-- /.navbar -->
+        <h1><?php echo $this->Html->link('asdf', '/', array('title' => 'asdf', 'rel' => 'home', 'class' => 'brand'))?></h1>
+        <?php echo $this->element('navbar')?>
       </div>
 
       <div class="row-fluid">
   			<?php echo $this->Session->flash();
-  			echo $this->fetch('content');?>
+  			echo $this->fetch('content')?>
       </div>
 
       <hr>

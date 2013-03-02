@@ -32,5 +32,16 @@ App::uses('Controller', 'Controller');
  * @link http://book.cakephp.org/2.0/en/controllers.html#the-app-controller
  */
 class AppController extends Controller {
-  public $components = array('DebugKit.Toolbar');
+
+  public $components = array('Cookie', 'DebugKit.Toolbar', 'Session');
+
+  public function beforeFilter()
+  {
+    App::uses('Page', 'Model');
+    $this->Page = ClassRegistry::init('Page');
+    $this->Page->contain();
+    $params = array('fields' => array('Page.slug', 'Page.title'));
+    $this->set('pages', $this->Page->find('list', $params));
+  }
+
 }

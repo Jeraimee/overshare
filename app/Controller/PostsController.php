@@ -39,27 +39,6 @@ class PostsController extends AppController {
 
 
   /**
-   * add method
-   *
-   * @return void
-   */
-
-  public function add()
-  {
-    if ($this->request->is('post')) {
-      $this->Post->create();
-      if ($this->Post->save($this->request->data)) {
-        $this->Session->setFlash(__('The post has been saved'));
-        $this->redirect(array('action' => 'index'));
-      }
-      else {
-        $this->Session->setFlash(__('The post could not be saved. Please, try again.'));
-      }
-    }
-  }
-
-
-  /**
    * admin_index method
    *
    * @return void
@@ -115,7 +94,8 @@ class PostsController extends AppController {
       else {
         $this->Session->setFlash(__('The post could not be saved. Please, try again.'));
       }
-    } else {
+    }
+    else {
       $this->request->data = $this->Post->read(null, $id);
     }
   }

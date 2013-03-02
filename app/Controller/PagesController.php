@@ -31,19 +31,12 @@ App::uses('AppController', 'Controller');
  */
 class PagesController extends AppController {
 
-/**
- * Controller name
- *
- * @var string
- */
-	public $name = 'Pages';
-
-/**
- * This controller does not use a model
- *
- * @var array
- */
-	public $uses = array();
+  /**
+   * Controller name
+   *
+   * @var string
+   */
+  public $name = 'Pages';
 
   /**
    * Custom home view
@@ -56,31 +49,102 @@ class PagesController extends AppController {
     $this->set('posts', $this->Post->find('all', $params));
   }
 
-/**
- * Displays a view
- *
- * @param mixed What page to display
- * @return void
- */
-	public function display() {
-		$path = func_get_args();
+  /**
+   * Displays a view
+   *
+   * @param mixed What page to display
+   * @return void
+   */
+  public function display($slug = null)
+  {
+    if (empty($slug)) {
+      $this->redirect('/');
+    }
 
-		$count = count($path);
-		if (!$count) {
-			$this->redirect('/');
-		}
-		$page = $subpage = $title_for_layout = null;
+    $params = array('conditions' => array('Page.slug' => $slug));
 
-		if (!empty($path[0])) {
-			$page = $path[0];
-		}
-		if (!empty($path[1])) {
-			$subpage = $path[1];
-		}
-		if (!empty($path[$count - 1])) {
-			$title_for_layout = Inflector::humanize($path[$count - 1]);
-		}
-		$this->set(compact('page', 'subpage', 'title_for_layout'));
-		$this->render(implode('/', $path));
-	}
+    $page = $this->Page->find('first', $params);
+    if (empty($page)) {
+      throw new NotFoundException(__('Invalid page'));
+    }
+    $this->set('page', $page);
+  }
+
+
+  /**
+   * add method
+   *
+   * @return void
+   */
+
+  public function admin_add()
+  {
+    if ($this->request->is('post')) {
+      $this->Page->create();
+      if ($this->Page->save($this->request->data)) {
+        $this->Session->setFlash(__('The page has been saved'));
+        $this->redirect("/{$this->data['Page']['slug']}");
+      }
+      else {
+        $this->Session->setFlash(__('The page could not be saved. Please, try again.'));
+      }
+    }
+  }
+
+
+  /**
+   * admin_edit method
+   *
+   * @throws NotFoundException
+   * @param string $id
+   * @return void
+   */
+
+  public function admin_edit($id = null)
+  {
+    $this->Page->id = $id;
+    if (!$this->Page->exists()) {
+      throw new NotFoundException(__('Invalid page'));
+    }
+    if ($this->request->is('post') || $this->request->is('put')) {
+      if ($this->Page->save($this->request->data)) {
+        $this->Session->setFlash(__('The page has been saved'));
+        $this->redirect("/{$this->data['Page']['slug']}");
+      }
+      else {
+        $this->Session->setFlash(__('The page could not be saved. Please, try again.'));
+      }
+    }
+    else {
+      $this->request->data = $this->Page->read(null, $id);
+    }
+  }
+
+
+  /**
+   * admin_delete method
+   *
+   * @throws MethodNotAllowedException
+   * @throws NotFoundException
+   * @param string $id
+   * @return void
+   */
+
+  public function admin_delete($id = null)
+  {
+    if (!$this->request->is('post')) {
+      throw new MethodNotAllowedException();
+    }
+    $this->Page->id = $id;
+    if (!$this->Page->exists()) {
+      throw new NotFoundException(__('Invalid post'));
+    }
+    if ($this->Page->delete()) {
+      $this->Session->setFlash(__('Page deleted'));
+      $this->redirect(array('action' => 'index'));
+    }
+    $this->Session->setFlash(__('Page was not deleted'));
+    $this->redirect(array('action' => 'index'));
+  }
+
 }
