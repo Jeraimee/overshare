@@ -27,6 +27,14 @@ class Page extends AppModel {
                                                                'message'  => 'Body is a required field.',
                                                                'required' => true)));
 
+  /**
+  * belongsTo associations
+  *
+  * @var array
+  */
+  public $belongsTo = array('User');
+
+
   public function beforeSave($options = array())
   {
     // Generate a unique slug for the page based on the title
