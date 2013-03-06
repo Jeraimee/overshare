@@ -27,12 +27,21 @@
               More <b class="caret"></b>
             </a>
             <ul class="dropdown-menu">
+              <?php if (!empty($user)):?>
               <li>
                 <?php echo $this->Html->link('New Post', array('controller' => 'posts', 'action' => 'add', 'admin' => true))?>
               </li>
               <li>
                 <?php echo $this->Html->link('New Page', array('controller' => 'pages', 'action' => 'add', 'admin' => true))?>
               </li>
+              <li>
+                <?php echo $this->Html->link('Log Out', array('controller' => 'users', 'action' => 'logout'))?>
+              </li>
+              <?php else:?>
+              <li>
+                <?php echo $this->Html->link('Log In', array('controller' => 'users', 'action' => 'login'))?>
+              </li>
+              <?php endif;?>
             </ul>
           </li>
         </ul>

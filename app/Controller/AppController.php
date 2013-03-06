@@ -33,7 +33,10 @@ App::uses('Controller', 'Controller');
  */
 class AppController extends Controller {
 
-  public $components = array('Cookie', 'DebugKit.Toolbar', 'Session');
+  public $components = array('Auth' => array('loginRedirect' => array('controller' => 'pages', 'action' => 'dashboard'),
+                                             'logoutRedirect' => '/',
+                                             'authError' => 'You must login to access that location.'),
+                             'Cookie', 'DebugKit.Toolbar', 'Session');
 
   public function beforeFilter()
   {
@@ -42,6 +45,10 @@ class AppController extends Controller {
     $this->Page->contain();
     $params = array('fields' => array('Page.slug', 'Page.title'));
     $this->set('pages', $this->Page->find('list', $params));
+
+    if ($this->Auth->user()) {
+      $this->set('user', $this->Auth->user());
+    }
   }
 
 }

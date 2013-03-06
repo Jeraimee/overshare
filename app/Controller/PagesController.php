@@ -38,6 +38,19 @@ class PagesController extends AppController {
    */
   public $name = 'Pages';
 
+  public function beforeFilter()
+  {
+    parent::beforeFilter();
+    $this->Auth->allow('home', 'display');
+  }
+
+
+  public function dashboard()
+  {
+    
+  }
+
+
   /**
    * Custom home view
    */
