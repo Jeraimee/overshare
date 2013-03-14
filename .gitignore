@@ -9,3 +9,5 @@
 /dist
 .DS_Store
 /tags
+/app/webroot/attachments
+!/app/webroot/attachments/empty
