@@ -9,7 +9,7 @@
     <?php
     echo $this->Html->link('View post', array('controller' => 'posts', 'action' => 'view', "{$post['Post']['id']}-{$post['Post']['slug']}"), array('title' => $post['Post']['title'], 'rel' => 'permalink'));
     if (!empty($user)) {
-      echo '&nbsp;|&nbsp;' . $this->Html->link('Edit post', array('admin' => true, 'controller' => 'posts', 'action' => 'edit', $post['Post']['id']));
+      echo '&nbsp;|&nbsp;' . $this->Html->link('Edit post', array('admin' => true, 'controller' => 'posts', 'action' => 'edit', $post['Post']['id'])) . '&nbsp;|&nbsp;' . $this->Html->link('Delete post', array('admin' => true, 'controller' => 'posts', 'action' => 'delete', $post['Post']['id']));
     }
     ?>
   </footer>

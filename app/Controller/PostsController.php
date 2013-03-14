@@ -118,7 +118,7 @@ class PostsController extends AppController {
 
   public function admin_delete($id = null)
   {
-    if (!$this->request->is('post')) {
+    if ($this->request->is('post')) {
       throw new MethodNotAllowedException();
     }
     $this->Post->id = $id;
